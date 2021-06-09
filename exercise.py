@@ -1,11 +1,18 @@
-from collections import Sequence
-from typing import Optional, List
-from question import Question, SinglePromptQuestion, TwoPromptQuestion
-from config import Sampler, NoSampling, FirstNSampling, RandomSampling
-import yaml
-import random
+# Local imports
+from question import Question
+from samplers import Sampler, NoSampling, FirstNSampling, RandomSampling
 
-class Exercise:
+# Standard library imports
+import random
+from abc import ABC, abstractmethod
+from typing import Optional, List
+
+# Third party imports
+import yaml
+
+
+class Exercise(ABC):
+    """Interface for the definition of quiz exercises"""    
     def __init__(self, 
                  available_questions: Optional[List[Question]] = None, 
                  question_sampler: Sampler = NoSampling()):
@@ -17,6 +24,11 @@ class Exercise:
         return "\n".join([str(question) for question in self.questions])
     
     def load_from_yaml(self, path: str):
+        """Sample questions loaded from a yaml file
+
+        Args:
+            path (str): Path to the yaml file
+        """        
         with open(path, 'r') as f:
             data = yaml.load(f, Loader=yaml.FullLoader)
         self.available_questions = data["questions"]
@@ -24,6 +36,10 @@ class Exercise:
         
     def shuffle_questions(self):
         random.shuffle(self.questions)
+        
+    @abstractmethod
+    def sample_questions(self):
+        pass
  
  
 class SinglePromptExercise(Exercise):
@@ -36,7 +52,7 @@ class SinglePromptExercise(Exercise):
         ]
 
                 
-class MultiPromptExercise(Exercise):
+class TwoPromptExercise(Exercise):
     secondary_prompts = []
     
     def __init__(self, available_questions = None, question_sampler = NoSampling(), prompt_sampler: Sampler = FirstNSampling(1)):
@@ -52,51 +68,61 @@ class MultiPromptExercise(Exercise):
     
             for prompt in sampled_prompts:
                 output.append(
-                    TwoPromptQuestion(
-                        prompt=question["prompt"], 
-                        secondary_prompt=prompt, 
+                    Question(
+                        prompts=[question["prompt"], prompt],
                         answer=question[prompt]
                     )
                 )
                         
-        return output       
+        return output  
     
-        
-                
+
+       
 class TranslationExercise(SinglePromptExercise):
-    question_class = SinglePromptQuestion
-
-
-class ConjugationExercise(MultiPromptExercise):
-    secondary_prompts = ["ja", "ti", "on", "mi", "vi", "oni"]
+    pass
         
-
-class CaseExercise(MultiPromptExercise):
+class FillInTheBlanksExercise(SinglePromptExercise):
+    pass
+        
+class CaseExercise(TwoPromptExercise):
     secondary_prompts = ["accusative", "locative"]
     
-                    
-                    
-if __name__ == "__main__":
-    all_questions = [
-        {
-            "prompt": "htjeti",
-            "ja": "hocu",
-            "ti": "hoces",
-            "on": "hoce",
-        }
-    ]
+class ConjugationExercise(Exercise):
+    pronouns = ["ja", "ti", "on", "mi", "vi", "oni"]
+    tenses = ["present"]
     
-    q_sampler = FirstNSampling(1)
-    prompt_sampler = RandomSampling(2)
-    exercise = ConjugationExercise(
-        available_questions=all_questions, 
-        question_sampler=q_sampler, 
-        prompt_sampler=prompt_sampler
-    )
-    
-    print(exercise.sample_questions())
-    print(exercise.sample_questions())
-    print(exercise.sample_questions())
-    print(exercise.sample_questions())
+    def __init__(self, 
+                 available_questions = None, 
+                 question_sampler = NoSampling(), 
+                 tense_sampler: Sampler = FirstNSampling(1),
+                 pronoun_sampler: Sampler = NoSampling()):
+        super().__init__(available_questions, question_sampler)
+        self.tense_sampler = tense_sampler
+        self.pronoun_sampler = pronoun_sampler
+        
+    def sample_questions(self):
+        sampled_questions = self.question_sampler.sample(self.available_questions)
+        
+        output = []
+        for question in sampled_questions:
+            tenses = [key for key in question.keys() if key in self.tenses]
+            sampled_tenses = self.tense_sampler.sample(tenses)
+            
+            for tense in sampled_tenses:
+                pronouns = [key for key in question[tense].keys() if key in self.pronouns]
+                sampled_pronouns = self.pronoun_sampler.sample(pronouns)
+                
+                for pronoun in sampled_pronouns:
+                
+                    output.append(
+                        Question(
+                            prompts=[question["prompt"], tense, pronoun], 
+                            answer=question[tense][pronoun]
+                        )
+                    )
+                        
+        return output          
+        
+     
         
     

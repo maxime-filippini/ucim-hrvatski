@@ -3,17 +3,19 @@ type: "conjugation"
 
 questions:
   - prompt: učiti
-    ja: učim
-    ti: učiš
-    on: uči
-    mi: učimo
-    vi: učite
-    oni: uče
+    present:
+      ja: učim
+      ti: učiš
+      on: uči
+      mi: učimo
+      vi: učite
+      oni: uče
 
   - prompt: znati
-    ja: znam
-    ti: znaš
-    on: zna
-    mi: znamo
-    vi: znate
-    oni: znaju
+    present:
+      ja: znam
+      ti: znaš
+      on: zna
+      mi: znamo
+      vi: znate
+      oni: znaju

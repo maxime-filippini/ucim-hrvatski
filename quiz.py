@@ -1,20 +1,15 @@
-from config import Config, RandomSampling, NoSampling, ConsoleInterface
+# Local imports
+from samplers import RandomSampling, NoSampling
+from interfaces import ConsoleInterface
+from config import Config
 from exercise import TranslationExercise, ConjugationExercise, CaseExercise
 
-from typing import List
-import yaml
+# Standard library imports
 import random
+from typing import List
 from pathlib import Path
 
-
-# Question file, always structure as a list of dicts
-# For a conjugation question, sample in the list, then sample within keys that are not the prompt. The key is a prompt element, the value the expected answer.
-
-
-# Process
-# Read from yaml
-# Sample from yaml
-# Build question objects
+# Third party imports
 
 
 class Quiz:
@@ -26,10 +21,7 @@ class Quiz:
         return self._config   
     
     def create_exercises_from_yaml(self, paths: List[str]):
-        # Create exercises using the sampler inside the config.
-        # Pass the question sampler to the relevant exercises based on themes
         sampler = self.config.exercise_sampler
-        
         sampled_paths = sampler.sample(paths)
         
         self.exercises = []
@@ -50,7 +42,8 @@ class Quiz:
             elif path.name.startswith("conjugation"):
                 exercise = ConjugationExercise(
                     question_sampler=self.config.question_sampler,
-                    prompt_sampler=self.config.prompt_sampler,
+                    tense_sampler=self.config.prompt_sampler,
+                    pronoun_sampler=self.config.pronoun_sampler,
                 )
                 
             else: 
@@ -74,6 +67,7 @@ if __name__ == "__main__":
         exercise_sampler=RandomSampling(2),
         question_sampler=NoSampling(), 
         prompt_sampler=RandomSampling(1),
+        pronoun_sampler=RandomSampling(1),
         interface=ConsoleInterface(),
     )
     
