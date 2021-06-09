@@ -47,7 +47,7 @@ class SinglePromptExercise(Exercise):
     def sample_questions(self):
         sampled_questions = self.question_sampler.sample(self.available_questions)
         return [
-            SinglePromptQuestion(prompt=question["prompt"], answer=question["answer"]) 
+            Question(prompts=[question["prompt"]], answer=question["answer"]) 
             for question in sampled_questions
         ]
 
@@ -113,7 +113,6 @@ class ConjugationExercise(Exercise):
                 sampled_pronouns = self.pronoun_sampler.sample(pronouns)
                 
                 for pronoun in sampled_pronouns:
-                
                     output.append(
                         Question(
                             prompts=[question["prompt"], tense, pronoun], 
