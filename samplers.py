@@ -31,7 +31,7 @@ class RandomSampling(Sampler):
         return self._N
         
     def sample(self, data: Sequence) -> Sequence:
-        return random.choices(data, k=self.N)
+        return random.sample(data, min((self.N, len(data))))
     
     
 class FirstNSampling(Sampler):

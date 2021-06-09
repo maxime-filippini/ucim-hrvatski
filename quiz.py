@@ -15,10 +15,19 @@ from pathlib import Path
 class Quiz:
     def __init__(self, config: Config):
         self._config = config
+        self._score = 0
 
     @property
     def config(self):
-        return self._config   
+        return self._config  
+    
+    @property
+    def score(self):
+        return self._score
+    
+    @score.setter
+    def score(self, value: int):
+        self._score = value
     
     def create_exercises_from_yaml(self, paths: List[str]):
         sampler = self.config.exercise_sampler
@@ -57,14 +66,15 @@ class Quiz:
     def shuffle_exercises(self):
         random.shuffle(self.exercises)
         
-        
-    
+    def run(self):
+        for exercise in self.exercises:
+            self.score = exercise.run(self.score)
     
         
 if __name__ == "__main__":
     paths = ["data/cases.yaml", "data/conjugation.yaml"]
     config = Config(
-        exercise_sampler=RandomSampling(2),
+        exercise_sampler=RandomSampling(20),
         question_sampler=NoSampling(), 
         prompt_sampler=RandomSampling(1),
         pronoun_sampler=RandomSampling(1),
@@ -73,5 +83,4 @@ if __name__ == "__main__":
     
     quiz = Quiz(config=config)
     quiz.create_exercises_from_yaml(paths)
-    
-    print(quiz.exercises[0])
+    quiz.run()

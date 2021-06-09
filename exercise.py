@@ -1,5 +1,6 @@
 # Local imports
 from question import Question
+from interfaces import DisplayInterface, ConsoleInterface
 from samplers import Sampler, NoSampling, FirstNSampling, RandomSampling
 
 # Standard library imports
@@ -19,9 +20,6 @@ class Exercise(ABC):
         self.available_questions = available_questions
         self.question_sampler = question_sampler
         self.questions = []
-        
-    def __str__(self):
-        return "\n".join([str(question) for question in self.questions])
     
     def load_from_yaml(self, path: str):
         """Sample questions loaded from a yaml file
@@ -40,6 +38,19 @@ class Exercise(ABC):
     @abstractmethod
     def sample_questions(self):
         pass
+    
+    def run(self, current_score: int = 0, interface: DisplayInterface = ConsoleInterface()):
+        
+        interface.print(interface.separator)
+        interface.print(str(self))
+        interface.print(interface.separator)
+        
+        for question in self.questions:
+            answer = interface.get_input(str(question))
+            
+        interface.print(interface.newline)
+            
+        return current_score
  
  
 class SinglePromptExercise(Exercise):
@@ -76,16 +87,20 @@ class TwoPromptExercise(Exercise):
                         
         return output  
     
-
        
 class TranslationExercise(SinglePromptExercise):
-    pass
+    def __str__(self):
+        return "Translate the following words/expressions:"
         
 class FillInTheBlanksExercise(SinglePromptExercise):
-    pass
+    def __str__(self):
+        return "Fill in the blanks in the following expressions:"
         
 class CaseExercise(TwoPromptExercise):
     secondary_prompts = ["accusative", "locative"]
+    
+    def __str__(self):
+        return "Decline the following words to the given case:"   
     
 class ConjugationExercise(Exercise):
     pronouns = ["ja", "ti", "on", "mi", "vi", "oni"]
@@ -99,6 +114,9 @@ class ConjugationExercise(Exercise):
         super().__init__(available_questions, question_sampler)
         self.tense_sampler = tense_sampler
         self.pronoun_sampler = pronoun_sampler
+        
+    def __str__(self):
+        return "Conjugate the following verbs to the given tenses and for the given pronouns:"     
         
     def sample_questions(self):
         sampled_questions = self.question_sampler.sample(self.available_questions)

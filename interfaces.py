@@ -18,9 +18,12 @@ class DisplayInterface(ABC):
 
 
 class ConsoleInterface(DisplayInterface):
-    """Implementation of the console interface for the app"""    
+    """Implementation of the console interface for the app"""  
+    separator = "-"*80
+    newline = "\n"
+      
     def get_input(self, prompt: str):
-        return input(prompt)
+        return input(prompt + " => ")
 
     def print(self, msg: str):
         print(msg)
