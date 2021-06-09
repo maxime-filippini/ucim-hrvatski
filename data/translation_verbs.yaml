@@ -1,0 +1,220 @@
+title: "translation_verbs"
+type: "translation"
+
+questions:
+  - prompt: željeti
+    answer: "to wish"
+
+  - prompt: učiti
+    answer: "to learn"
+
+
+####################################
+
+željeti: 
+  translation: "to wish"
+  first_person: želim
+
+trebati: 
+  translation: "to need"
+  first_person: trebam
+
+pisati:
+  translation: "to write"
+  first_person: pišem
+
+pitati:
+  translation: "to ask"
+  first_person: pitam
+
+zvati:
+  translation: "to call"
+  first_person: zovem
+
+odgajati:
+  translation: "to raise"
+  first_person: odgajam
+
+crtati:
+  translation: "to draw"
+  first_person: crtam
+
+igrati:
+  translation: "to play"
+  first_person: igram
+
+čekati:
+  translation: "to wait"
+  first_person: čekam
+
+vježbati:
+  translation: "to practice"
+  first_person: vježbam
+
+slikati:
+  translation: "to draw"
+  first_person: slikam
+
+reklamirati:
+  translation: "to advertise"
+  first_person: reklamiram
+
+trenirati:
+  translation: "to train"
+  first_person: treniram
+
+morati:
+  translation: "to have to"
+  first_person: moram
+
+smjeti:
+  translation: "to be allowed to"
+  first_person: smijem
+
+moći:
+  translation: "to be able to"
+  first_person: "mogu"
+
+htjeti:
+  translation: "to want"
+  first_person: hoću
+
+brojati:
+  translation: "to count"
+  first_person: brojim
+
+čistiti:
+  translation: "to clean"
+  first_person: čistim
+
+čitati:
+  translation: "to read"
+  first_person: čitam
+
+davati:
+  translation: "to give"
+  first_person: dajem
+
+disati:
+  translation: "to breathe"
+  first_person: dišem
+
+ići:
+  translation: "to go"
+  first_person: idem
+
+gledati:
+  translation: "to watch"
+  first_person: gledam
+
+govoriti:
+  translation: "to speak"
+  first_person: govorim
+
+gurati:
+  translation: "to push"
+  first_person: guram
+
+hodati:
+  translation: "to walk"
+  first_person: hodam
+
+kazati:
+  translation: "to say"
+  first_person: kažem
+
+koristiti:
+  translation: "to use"
+  first_person: koristim
+  
+kuhati:
+  translation: "to cook"
+  first_person: kuham
+
+ležati:
+  translation: "to lay down"
+  first_person: ležim
+
+prati:
+  translation: "to wash"
+  first_person: perem
+
+pripremati:
+  translation: "to prepare"
+  first_person: pripremam
+
+platiti:
+  translation: "to pay"
+  first_person: plaćam
+
+raditi:
+  translation: "to work"
+  first_person: radim
+
+razgovarati:
+  translation: "to talk"
+  first_person: razgovaram
+
+roniti:
+  translation: "to dive"
+  first_person: ronim
+
+sjesti:
+  translation: "to sit"
+  first_person: sjedim
+
+skočiti:
+  translation: "to jump"
+  first_person: skačem
+
+slušati:
+  translation: "to listen"
+  first_person: slušati
+
+spavati:
+  translation: "to sleep"
+  first_person: spavam
+
+stajati:
+  translation: "to stand"
+  first_person: stojim
+
+trčati:
+  translation: "to run"
+  first_person: trčim
+
+tražiti:
+  translation: "to search"
+  first_person: tražim
+
+učiti:
+  translation: "to learn"
+  first_person: učim
+
+uzeti:
+  translation: "to take"
+  first_person: uzimam
+
+vući:
+  translation: "to pull"
+  first_person: vućem
+
+vikati:
+  translation: "to yell"
+  first_person: vićem
+
+vidjeti:
+  translation: "to see"
+  first_person: vidim
+
+voditi:
+  translation: "to lead"
+  first_person: vodim
+
+znati:
+  translation: "to know"
+  first_person: znam
+
+voziti:
+  translation: "to drive"
+  first_person: vozim

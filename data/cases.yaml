@@ -1,0 +1,23 @@
+title: "cases"
+type: "cases"
+
+questions:
+  - prompt: stol
+    accusative: stol
+    locative: stolu
+    
+  - prompt: stolovi
+    accusative: stolove
+    locative: stolovima
+
+  - prompt: soba
+    accusative: sobu
+    locative: sobi
+
+  - prompt: sobe
+    accusative: sobe 
+    locative: sob
+
+  - prompt: Hrvatska
+    accusative: Hrvatsku
+    locative: Hrvatskoj
